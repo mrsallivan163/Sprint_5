@@ -6,10 +6,9 @@ from selenium.webdriver.support import expected_conditions
 from .locators import LoginPageLocators
 import random
 from faker import Faker
-
+from .config import Url
 from .locators import LoginPageLocators, RegistrationPageLocators, AuthorizationPageLocators
 
-main_url = 'https://qa-desk.stand.praktikum-services.ru/'
 
 @pytest.fixture(scope="function")
 def driver():
@@ -25,14 +24,14 @@ def wait(driver:WebDriver):
 
 @pytest.fixture
 def go_to_registration_page(driver:WebDriver, wait):
-    driver.get(main_url)
+    driver.get(Url.MAIN_URL)
     wait.until(expected_conditions.element_to_be_clickable(LoginPageLocators.LOGIN_BUTTON)).click()
     wait.until(expected_conditions.element_to_be_clickable(LoginPageLocators.NO_ACCOUNT_BUTTON)).click()
     wait.until(expected_conditions.visibility_of_element_located(RegistrationPageLocators.EMAIL_INPUT))
 
 @pytest.fixture
 def go_to_authorization_page(driver:WebDriver, wait):
-    driver.get(main_url)
+    driver.get(Url.MAIN_URL)
     wait.until(expected_conditions.element_to_be_clickable(LoginPageLocators.LOGIN_BUTTON)).click()
     wait.until(expected_conditions.element_to_be_clickable(AuthorizationPageLocators.EMAIL_INPUT))
 
